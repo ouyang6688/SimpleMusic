@@ -18,23 +18,27 @@
           <li v-for="(item,index) in hasTaste" :key="index" @click="goMusiclist(item.id)">
             <img :src="item.picUrl" alt="">
             <span class="remd_lnum"><i class="iconfont icon-erji1"></i>
-              {{parseInt(item.playCount/wan) > 0 ? (parseInt(item.playCount/wan/wan)>0?parseInt(item.playCount/wan/wan)+"亿":parseInt(item.playCount/wan)+"万" ): item.playCount}}
+              {{
+                parseInt(item.playCount / wan) > 0 ? (parseInt(item.playCount / wan / wan) > 0 ? parseInt(item.playCount / wan / wan) + "亿" : parseInt(item.playCount / wan) + "万") : item.playCount
+              }}
             </span>
-            <p>{{item.name}}</p>
+            <p>{{ item.name }}</p>
           </li>
         </ul>
       </div>
     </div>
 
     <div class="remlists">
-      <div class="title">
-        最新音乐
-      </div>
+      <van-notice-bar color="#333" background="#fff" scrollable style="margin: 20px 0">
+        <div class="title">
+          最新音乐
+        </div>
+      </van-notice-bar>
       <div class="content1">
         <ul class="uls">
           <li v-for="(item,index) in newsongList" :key="index">
             <img :src="item.picUrl" alt="">
-            <p style="text-align: center;font-weight: bold">{{item.name}}</p>
+            <p style="text-align: center;font-weight: bold">{{ item.name }}</p>
           </li>
         </ul>
       </div>
@@ -43,23 +47,23 @@
 </template>
 
 <script>
-import {getBanner,getNewsong} from '../api/recommend'
+import {getBanner, getNewsong} from '../api/recommend'
 
 export default {
   name: "recommend",
   data() {
     return {
       banners: "",
-      hasTaste:"",
-      wan:10000,
-      newsongList:""
+      hasTaste: "",
+      wan: 10000,
+      newsongList: ""
     }
   },
-  methods:{
-    goMusiclist(id){
+  methods: {
+    goMusiclist(id) {
       this.$router.push({
-        path:"/recommend/musiclist",
-        query:{id}
+        path: "/recommend/musiclist",
+        query: {id}
       })
     }
   },
@@ -70,13 +74,13 @@ export default {
       }
       // console.log(data)
     })
-    getBanner("/personalized?limit=9").then(data=>{
-      if(data.code == 200){
-        this.hasTaste =data.result;
+    getBanner("/personalized?limit=9").then(data => {
+      if (data.code == 200) {
+        this.hasTaste = data.result;
       }
       // console.log(data);
     })
-    getNewsong().then(data=>{
+    getNewsong().then(data => {
       data.result.pop();
       this.newsongList = data.result;
       console.log(this.newsongList)

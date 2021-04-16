@@ -3,16 +3,16 @@ import axios from 'axios';
 const service = axios.create({
     // baseURL: "http://192.168.54.3:3000",
     // baseURL: "http://musicapi.leanapp.cn",
-    baseURL: "http://192.168.54.25:3000",
-    timeout:30000000,     //请求超时时间
-    header:{
-        "Content-Type":"application/json;charset=UTF-8" //表单数据传递转化
+    baseURL: "http://192.168.54.16:3000",
+    timeout: 30000000,     //请求超时时间
+    header: {
+        "Content-Type": "application/json;charset=UTF-8" //表单数据传递转化
     }
 })
 
 //request拦截器 发送数据到后台
 service.interceptors.request.use(
-    config=>{
+    config => {
         return config;
     },
     error => {
@@ -23,7 +23,7 @@ service.interceptors.request.use(
 
 //
 service.interceptors.response.use(
-    response=>{
+    response => {
         return response.data;
     },
     error => {

@@ -20,12 +20,16 @@
       </router-link>
     </div>
     <div class="mask" v-if="flag">
-        <ul>
-          <li @click="linkUrl(item.paths)" v-for="(item,index) in smList" :key="index">{{ item.names }}</li>
-          <li>
-            <a href="https://d1.music.126.net/dmusic/NeteaseCloudMusic_Music_official_8.1.80.210406193830.apk">APP下载</a>
-          </li>
-        </ul>
+      <ul>
+        <li @click="linkUrl(item.paths)" v-for="(item,index) in smList" :key="index">
+          <span :class="[`iconfont ${item.icons}`]"></span>
+          {{ item.names }}
+        </li>
+        <li>
+          <span class="iconfont icon-xiazai"></span>
+          <a href="https://d1.music.126.net/dmusic/NeteaseCloudMusic_Music_official_8.1.80.210406193830.apk">APP下载</a>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -33,117 +37,154 @@
 <script>
 export default {
   name: "HeaderNav",
-  data(){
-    return{
-      flag:false,
-      smList:[
+  data() {
+    return {
+      flag: false,
+      smList: [
         {
-          paths:"/recommend",
-          names:'热门推荐'
+          icons: "icon-tuijian1",
+          paths: "/recommend",
+          names: '热门推荐'
         },
         {
-          paths:"/rank",
-          names:'排行榜'
+          icons: "icon-paihangbang--",
+          paths: "/rank",
+          names: '排 行 榜'
         },
         {
-          paths:"/singer",
-          names:'歌手分类'
+          icons: "icon-ren",
+          paths: "/singer",
+          names: '歌手分类'
         },
         {
-          paths:"/newmv",
-          names:'热门MV'
+          icons: "icon-shexiangji",
+          paths: "/newmv",
+          names: '热门MV'
         },
         {
+          icons: "icon-search",
           paths: "/search",
-          names: "搜索"
+          names: "音乐搜索"
         },
         {
+          icons: "icon-shoucang",
+          paths: "/enshrine",
+          names: "收 藏 夹"
+        },
+        {
+          icons: "icon-denglu",
           paths: "/login",
           names: "用户登录"
         }
       ]
     }
   },
-  methods:{
-    linkUrl(data){
-      if(this.$route.path !== data){
-        this.$router.push({path:data});
+  methods: {
+    linkUrl(data) {
+      if (this.$route.path !== data) {
+        this.$router.push({path: data});
       }
       this.flag = !this.flag;
-      this.$emit("showOr-p",this.flag)
+      this.$emit("showOr-p", this.flag)
     },
-    linkShow(){
+    linkShow() {
       this.flag = !this.flag;
-      this.$emit("showOr-p",this.flag)
+      this.$emit("showOr-p", this.flag)
     }
   }
 }
 </script>
 
 <style scoped lang="less">
-.header{
+.header {
   display: flex;
   background-color: #D4473C;
-  color:#fff;
+  color: #fff;
   text-align: center;
-  .left{
+
+  .left {
     flex: 0 0 1.0625rem;
     font-size: .46875rem;
     line-height: .984375rem;
   }
-  .center{
+
+  .center {
     flex: 1;
     line-height: .984375rem;
     font-size: .375rem;
     font-weight: bold;
   }
-  .right{
+
+  .right {
     flex: 0 0 1.0625rem;
     font-size: .46875rem;
     line-height: .984375rem;
   }
 }
-.navs{
+
+.navs {
   display: flex;
-  color:#fff;
+  color: #fff;
   background-color: #D4473C;
   margin-top: -0.015625rem;
-  .item{
+
+  .item {
     flex: 1;
     font-size: 22px;
     height: 1.140625rem;
     text-align: center;
-    span{
+
+    span {
       margin-top: .359375rem;
-      height:.515625rem;
+      height: .515625rem;
       line-height: .515625rem;
       display: inline-block;
       border-bottom: 2px solid transparent;
       padding-bottom: 3px;
     }
-    &.router-link-active span{
+
+    &.router-link-active span {
       font-weight: bold;
       border-color: #fff;
     }
   }
 }
-.mask{
-  width: 100vw;
+
+.mask {
+  width: 80vw;
   height: 100vh;
-  background-color: #D4473C;
-  ul{
+  background-color: #f5f5f5;
+
+  ul {
     width: 100%;
-    height: 100%;
-    li{
-      width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    li {
+      width: 80%;
       height: 1.5625rem;
       line-height: 1.5625rem;
       font-size: 1.09375rem;
-      color: #fff;
-      text-align: center;
-      border-bottom: 1px solid #fff;
-      a{
-        color: #fff;
+      color: #7b7b7b;
+      //text-align: center;
+      border: 1px solid #eedfdf;
+      border-radius: 10px;
+      //background-color: rgba(0,0,1,.3);
+      background-color: #fcfcfc;
+
+      span {
+        margin-left: 2px;
+        display: inline-block;
+        height: 1.5625rem;
+        line-height: 1.5625rem;
+        font-size: .9375rem;
+      }
+
+      a {
+        color: #7b7b7b;;
       }
     }
   }

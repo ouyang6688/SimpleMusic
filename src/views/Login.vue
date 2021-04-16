@@ -14,10 +14,16 @@
     <div class="registerdiv" v-else>
       <ul>
         <li>极简音乐</li>
-        <li></li>
-        <li>用户 {{$store.state.user.phone}}</li>
-        <li></li>
-        <li @click="delUser">退出登录</li>
+        <li>
+          <img src="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3649178992,1821853682&fm=26&gp=0.jpg"
+               alt="">
+          <p><span class="iconfont icon-ren"></span>用户 {{ $store.state.user.phone }}</p>
+        </li>
+        <li>
+          <div @click="$router.push({path:'/recommend'})"><span class="iconfont icon-tuijian1"></span>首页</div>
+          <div @click="$router.push({path:'/enshrine'})"><span class="iconfont icon-shoucangjia"></span>收藏</div>
+        </li>
+        <li @click="delUser"><span class="iconfont icon-denglu"></span>退出登录</li>
       </ul>
     </div>
   </div>
@@ -25,12 +31,13 @@
 
 <script>
 import {mapActions} from "vuex"
+
 export default {
   name: "Login",
   data() {
     return {}
   },
-  methods:{
+  methods: {
     ...mapActions(['delUser'])
   }
 }
@@ -58,24 +65,80 @@ export default {
     color: #fff;
   }
 }
-.registerdiv{
+
+.registerdiv {
   width: 100vw;
-  height: 100vh;
+  height: 630px;
   display: flex;
   justify-content: center;
-  align-items: center;
-  ul{
-    width: 60%;
+  background-color: #f0f0f0;
+
+  ul {
+    width: 80%;
     height: 40%;
-    li{
+    color: #616161;
+
+    li {
       width: 100%;
-      height: 20%;
+      height: 54px;
       line-height: 54px;
       vertical-align: middle;
       text-align: center;
-      &:nth-child(even){
-        border-top: 1px solid #8d8e8f;
-        border-bottom: 1px solid #8d8e8f;
+
+      img {
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        position: absolute;
+        top: -38%;
+        left: 39%;
+      }
+
+      &:nth-child(2) {
+        position: relative;
+        margin-top: 50px;
+        height: 100px;
+        line-height: 120px;
+        background-color: #faf7f7;
+        border-radius: 50px;
+
+        span {
+          font-size: 24px;
+          line-height: 100%;
+          padding-right: 5px;
+          color: #D4473C;
+        }
+      }
+
+      &:nth-child(3) {
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-around;
+
+        div {
+          width: 45%;
+          height: 100%;
+          border: 1px solid #8d8e8f;
+          border-radius: 40px;
+
+          span {
+            font-size: 24px;
+            line-height: 100%;
+            padding-right: 10px;
+          }
+        }
+      }
+
+      &:last-child {
+        margin-top: 40px;
+        border: 1px solid #8d8e8f;
+        border-radius: 40px;
+
+        span {
+          font-size: 24px;
+          line-height: 100%;
+          padding-right: 10px;
+        }
       }
     }
   }

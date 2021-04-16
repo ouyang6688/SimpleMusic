@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div class="loadingvan" v-show="loading">
+      <van-loading type="spinner" color="#D4473C" size="50px"/>
+    </div>
+
     <div class="topheader">
       <div class="img">
         <img :src="playlist.picUrl" alt="">
@@ -70,7 +74,7 @@
             </div>
             <div class="cmt">
               <div class="username">{{ item.user.nickname }}</div>
-              <div class="time">{{ item.time | timefor}}</div>
+              <div class="time">{{ item.time | timefor }}</div>
             </div>
             <div class="good">
               <div class="num">{{ item.likedCount }}</div>
@@ -99,7 +103,7 @@
 </template>
 
 <script>
-import {getArtists,getMusicLists} from "../api/singer";
+import {getArtists, getMusicLists} from "../api/singer";
 import player from "../components/player";
 
 export default {
@@ -110,7 +114,15 @@ export default {
       singers: "",
       newcomment: [],
       hotcomment: [],
+      loading: true,
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.loading = false;
+      }, 5000)
+    })
   },
   methods: {
     getDetailFun() {
@@ -127,41 +139,41 @@ export default {
         this.hotcomment = data.hotComments;
       })
     },
-    addlists(i){
-      this.$store.dispatch("addmusicData",{index:i,list:this.singers})
+    addlists(i) {
+      this.$store.dispatch("addmusicData", {index: i, list: this.singers})
     }
   },
-  filters:{
+  filters: {
     timefor(val) {
       // console.log(val);
       let time = new Date(val);
-      let  y = time.getFullYear();
-      let  m = time.getMonth() + 1;
-      let  d = time.getDate();
-      let  h = time.getHours();
-      let  mm = time.getMinutes();
+      let y = time.getFullYear();
+      let m = time.getMonth() + 1;
+      let d = time.getDate();
+      let h = time.getHours();
+      let mm = time.getMinutes();
       let newtime = new Date();
-      let  newy = newtime.getFullYear();
-      let  newm = newtime.getMonth() + 1;
-      let  newd = newtime.getDate();
-      let  newh = newtime.getHours();
-      let  newmm = newtime.getMinutes();
-      if(y == newy  && m == newm && d == newd && h == newh){
+      let newy = newtime.getFullYear();
+      let newm = newtime.getMonth() + 1;
+      let newd = newtime.getDate();
+      let newh = newtime.getHours();
+      let newmm = newtime.getMinutes();
+      if (y == newy && m == newm && d == newd && h == newh) {
         let formm = newmm - mm
         // console.log(mm+"分钟前");
-        return formm+"分钟前"
-      }else if(y == newy  && m == newm && d == newd){
-        let forh = h>=10?h:"0"+h
-        let formm = mm>=10 ? mm:"0"+mm
-        return forh+":"+formm
-      }else if(y == newy  && m == newm && d == newd-1){
-        let forh = h>=10?h:"0"+h
-        let formm = mm>=10 ? mm:"0"+mm
+        return formm + "分钟前"
+      } else if (y == newy && m == newm && d == newd) {
+        let forh = h >= 10 ? h : "0" + h
+        let formm = mm >= 10 ? mm : "0" + mm
+        return forh + ":" + formm
+      } else if (y == newy && m == newm && d == newd - 1) {
+        let forh = h >= 10 ? h : "0" + h
+        let formm = mm >= 10 ? mm : "0" + mm
         // console.log("昨天"+forh+":"+formm);
-        return  "昨天"+forh+":"+formm
-      }else{
+        return "昨天" + forh + ":" + formm
+      } else {
         // console.log(y+"年"+m+"月"+d+"日");
-        return y+"年"+m+"月"+d+"日"
+        return y + "年" + m + "月" + d + "日"
       }
     },
   },
@@ -351,5 +363,22 @@ dt {
   box-sizing: border-box;
   font-size: 0.1875rem;
   background: #eeeff0;
+}
+
+.loadingvan {
+  position: fixed;
+  z-index: 900;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  background: rgba(242, 242, 242, 0.8);
+  text-align: center;
+
+  .van-loading {
+    margin: 0 auto;
+    margin-top: 7.0625rem;
+  }
 }
 </style>

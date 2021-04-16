@@ -192,7 +192,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 * {
   margin: 0px;
   padding: 0px;
@@ -313,7 +313,7 @@ ul {
 
   .van-loading {
     margin: 0 auto;
-    margin-top: 4.0625rem;
+    margin-top: 7.0625rem;
   }
 }
 </style>

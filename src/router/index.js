@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import recommend from "../views/recommend";
+import store from "@/store"
 
 Vue.use(VueRouter)
 
@@ -11,17 +12,17 @@ const routes = [
     },
     {
         path: '/recommend',
-        meta:{
-            headerfalg:false
+        meta: {
+            headerfalg: false
         },
         component: recommend
     },
     {
-      path: "/recommend/musiclist",
-        meta:{
-            headerfalg:true
+        path: "/recommend/musiclist",
+        meta: {
+            headerfalg: true
         },
-        component: ()=>import('../components/song.vue')
+        component: () => import('../components/song.vue')
     },
     {
         path: '/rank',
@@ -33,40 +34,63 @@ const routes = [
     },
     {
         path: '/search',
-        meta:{
-            headerfalg:true
+        meta: {
+            headerfalg: true
         },
         component: () => import("../views/search")
     },
     {
         path: '/singer/singerList',
-        meta:{
-            headerfalg:true
+        meta: {
+            headerfalg: true
         },
         component: () => import("../components/singerList")
+    },
+    {
+        path: '/enshrine',
+        meta: {
+            headerfalg: true
+        },
+        component: () => import("../views/enshrine"),
+        beforeEnter: (to, from, next) => {
+            if (!store.state.user.login) {
+                next('/login/register')
+                return
+            }
+            next()
+            console.log(to)
+            console.log(from)
+        }
     },
     {
         path: '/newmv',
         component: () => import("../views/newmv")
     },
     {
+        path: '/bigplay',
+        meta: {
+            headerfalg: true
+        },
+        component: () => import("../components/bigplay")
+    },
+    {
         path: '/login',
-        meta:{
-          headernavfalg: true
+        meta: {
+            headernavfalg: true
         },
         redirect: '/login/register',
         component: () => import("../views/Login"),
-        children:[
+        children: [
             {
-                path:"register",
-                meta:{
+                path: "register",
+                meta: {
                     headernavfalg: true
                 },
                 component: () => import("../views/register"),
             },
             {
-                path:"ringup",
-                meta:{
+                path: "ringup",
+                meta: {
                     headernavfalg: true
                 },
                 component: () => import("../views/ringup"),

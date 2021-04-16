@@ -3,24 +3,24 @@ import request from "./http"
 export function getBanner(newurl) {
     return request({
         url: newurl,
-        method:'get',
+        method: 'get',
     })
 }
 
 //获取歌单详情
 export function getDetail(params) {
     return request({
-        url:"playlist/detail",
-        method:"get",
+        url: "playlist/detail",
+        method: "get",
         params
     })
 }
 
 // 获取歌单评论
-export function getCommentLists(params){
+export function getCommentLists(params) {
     return request({
-        url:"/comment/playlist",
-        method:"get",
+        url: "/comment/playlist",
+        method: "get",
         params
     })
 }
@@ -29,6 +29,6 @@ export function getCommentLists(params){
 export function getNewsong() {
     return request({
         url: "/personalized/newsong",
-        method:'get',
+        method: 'get',
     })
 }

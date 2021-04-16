@@ -1,73 +1,72 @@
 <template>
   <div>
-    <div class="hang" v-show="!falg"></div>
+    <div class="hang"></div>
 
     <!--    <div class="player" v-show="falg" :style="`background: url('${playimg}') no-repeat center center`">-->
-    <div class="player" v-show="falg">
-      <div class="button" @click="falg=!falg">
-        <span class="iconfont icon-wei-"></span>
-      </div>
-      <div class="title">
-        <h2>{{ musicData.Musiclist[musicData.musicI].name }}</h2>
-        <h3>
-          <span v-for="(item,index) in musicData.Musiclist[musicData.musicI].ar" :key="index"
-                v-show="index < 3">{{ item.name }}&nbsp;</span>
-        </h3>
-      </div>
+    <!--    <div class="player" v-show="falg">-->
+    <!--      <div class="button" @click="falg=!falg">-->
+    <!--        <span class="iconfont icon-wei-"></span>-->
+    <!--      </div>-->
+    <!--      <div class="title">-->
+    <!--        <h2>{{ musicData.Musiclist[musicData.musicI].name }}</h2>-->
+    <!--        <h3>-->
+    <!--          <span v-for="(item,index) in musicData.Musiclist[musicData.musicI].ar" :key="index"-->
+    <!--                v-show="index < 3">{{ item.name }}&nbsp;</span>-->
+    <!--        </h3>-->
+    <!--      </div>-->
 
-      <div class="content clearfix" @click="iconplay=!iconplay">
-        <div :class="['img','play',{'pause':playks}]" v-show="iconplay===true">
-          <img :src="playimg" alt="" :class="['play',{'pause':!playks}]">
-        </div>
+    <!--      <div class="content clearfix" @click="iconplay=!iconplay">-->
+    <!--        <div :class="['img','play',{'pause':playks}]" v-show="iconplay===true">-->
+    <!--          <img :src="playimg" alt="" :class="['play',{'pause':!playks}]">-->
+    <!--        </div>-->
 
-        <div v-show="iconplay!==true" class="lyrics">
-          <ul :style="{'top':lyricTop}">
-            <li
-                v-for="(item,index) in lyric"
-                :class="{'con':currentRow === index}"
-                :key="index"
-            >{{ item.text }}
-            </li>
+    <!--        <div v-show="iconplay!==true" class="lyrics">-->
+    <!--          <ul :style="{'top':lyricTop}">-->
+    <!--            <li-->
+    <!--                v-for="(item,index) in lyric"-->
+    <!--                :class="{'con':currentRow === index}"-->
+    <!--                :key="index"-->
+    <!--            >{{ item.text }}-->
+    <!--            </li>-->
+    <!--          </ul>-->
+    <!--        </div>-->
+    <!--      </div>-->
 
-          </ul>
-        </div>
-      </div>
+    <!--      <div class="range">-->
+    <!--        <div class="bar">-->
+    <!--          <span class="timeLeft">{{ timeleft | playertime }}</span>-->
+    <!--          <van-slider v-model="value" @change="sliderchange" bar-height="5px" active-color="#D4483D">-->
+    <!--            <template #button>-->
+    <!--              <div class="custom-button"></div>-->
+    <!--            </template>-->
+    <!--          </van-slider>-->
+    <!--          <span class="timeRight">{{ timeright | playertime }}</span>-->
+    <!--        </div>-->
+    <!--      </div>-->
 
-      <div class="range">
-        <div class="bar">
-          <span class="timeLeft">{{ timeleft | playertime }}</span>
-          <van-slider v-model="value" @change="sliderchange" bar-height="5px" active-color="#D4483D">
-            <template #button>
-              <div class="custom-button"></div>
-            </template>
-          </van-slider>
-          <span class="timeRight">{{ timeright | playertime }}</span>
-        </div>
-      </div>
+    <!--      <div>-->
+    <!--        <ul class="buttons">-->
+    <!--          <li @click="changeMode">-->
+    <!--            <span class="iconfont icon-ziyuan" v-if="playerType == 1"></span>-->
+    <!--            <span class="iconfont icon-suiji" v-else></span>-->
+    <!--          </li>-->
+    <!--          <li @click="startup"><span class="iconfont icon-48shangyishou"></span></li>-->
+    <!--          <li @click="toggleplay">-->
+    <!--            <span class="iconfont icon-arrow-" v-if="!playks"></span>-->
+    <!--            <span class="iconfont icon-ziyuan100" v-if="playks"></span>-->
+    <!--          </li>-->
+    <!--          <li @click="lowerFun"><span class="iconfont icon-49xiayishou"></span></li>-->
+    <!--          <li><span class="iconfont icon-aixin"></span></li>-->
+    <!--        </ul>-->
+    <!--      </div>-->
 
-      <div>
-        <ul class="buttons">
-          <li @click="changeMode">
-            <span class="iconfont icon-ziyuan" v-if="playerType == 1"></span>
-            <span class="iconfont icon-suiji" v-else></span>
-          </li>
-          <li @click="startup"><span class="iconfont icon-48shangyishou"></span></li>
-          <li @click="toggleplay">
-            <span class="iconfont icon-arrow-" v-if="!playks"></span>
-            <span class="iconfont icon-ziyuan100" v-if="playks"></span>
-          </li>
-          <li @click="lowerFun"><span class="iconfont icon-49xiayishou"></span></li>
-          <li><span class="iconfont icon-aixin"></span></li>
-        </ul>
-      </div>
-
-    </div>
+    <!--    </div>-->
 
     <div class="line">
       <van-progress :percentage="musicLang" pivot-text="" color="#ee0a24" stroke-width="2"/>
     </div>
-    <div class="miniPaly" v-show="!falg">
-      <div class="play-img" @click="falg=!falg">
+    <div class="miniPaly">
+      <div class="play-img" @click="$router.push({path:'/bigplay'})">
         <img :src="playimg" alt="" :class="['play',{'pause':!playks}]">
       </div>
       <div class="paly-kj">
@@ -105,13 +104,12 @@
 
 <script>
 import {mapState} from "vuex";
-import {getSongDetail, getSongUrl, getSongLyric} from "../api/song"
+import {getSongDetail, getSongUrl} from "../api/song"
 
 export default {
   name: "player",
   data() {
     return {
-      falg: false,
       show: false,
       musicLang: 0,
       value: 0,
@@ -141,17 +139,6 @@ export default {
   computed: {
     ...mapState(['musicData'])
   },
-  watch: {
-    timeleft: function () {
-      for (let i = 0; i < this.lyric.length; i++) {
-        if (parseInt(this.timeleft) == this.lyric[i].time) {
-          this.currentRow = i; //文字选中切换
-          this.lyricTop = (300 - i * 50) / 64 + "rem";
-          break;
-        }
-      }
-    }
-  },
   methods: {
     showPopup() {
       this.show = true;
@@ -167,7 +154,7 @@ export default {
           this.timeleft = currentTime;
           // 计算滑块位置
           this.value = currentTime / duration * 100;
-          this.musicLang = this.value
+          this.musicLang = currentTime / duration * 100;
 
           if (this.value == 100) {
             clearInterval(this.clearset);
@@ -187,74 +174,16 @@ export default {
       this.timeleft = duration;//百分比
       this.$refs.audio.currentTime = duration; //修改时间
     },
-    //播放
-    // player(){
-    //   if(!this.playks){
-    //     this.$refs.audio.play();
-    //   }else {
-    //     this.$refs.audio.pause();
-    //   }
-    //   this.playks = !this.playks;
-    // },
-    //上一首
-    startup() {
-      let i = this.musicData.musicI;
-      if (i - 1 < 0) {
-        i = this.musicData.Musiclist.length
-      } else {
-        i--
-      }
-      this.$store.dispatch("addmusicData", {index: i, list: this.musicData.Musiclist})
-    },
-    //下一首
-    lowerFun() {
-      let i = this.musicData.musicI;
-      if (i + 1 > this.musicData.Musiclist.length) {
-        i = 0
-      } else {
-        i++
-      }
-      this.$store.dispatch("addmusicData", {index: i, list: this.musicData.Musiclist})
-    },
+
     // 音乐加载完后调用
     canplayFun() {
       this.timeright = this.$refs.audio.duration;
       // this.timeleft = 0;
       this.playks = true; //播放
       this.toggleplay();
-      this.getSongLyricFun();
+      // this.getSongLyricFun();
     },
-    // 获取歌词
-    getSongLyricFun() {
-      this.lyricTop = "4.6875rem";
-      this.currentRow = 0;
-      getSongLyric({id: this.musicData.Musiclist[this.musicData.musicI].id}).then(data => {
-        this.formatLyric(data.lrc.lyric);
-      })
-    },
-    // 处理歌词结构
-    formatLyric(text) {
-      this.lyric = [];
-      let arr = text.split("\n"); //把原歌曲字符串转数组
-      let row = arr.length;//获取数组长度
-      for (let i = 0; i < row; i++) {
-        let temp_row = arr[i];//获取数据"[00:00.000] 作词 : G.E.M.邓紫棋"
-        let temp_arr = temp_row.split("]");//分成两个数组
-        // [00:00.000      作词 : G.E.M.邓紫棋
-        let text = temp_arr.pop();//删除数组最后以为，返回删除数据
 
-        temp_arr.forEach(element => {
-          let obj = {}
-          let time_arr = element.substr(1, element.length - 1).split(":");  //02:00.000 获取时间数据
-          let s = parseInt(time_arr[0]) * 60 + Math.ceil(time_arr[1]); //得到当前秒数
-          obj.time = s;
-          obj.text = text;
-          if (text.length > 0) {
-            this.lyric.push(obj);//每一行处理好数据放入数组
-          }
-        })
-      }
-    },
     // 音乐播放结束
     endedFun() {
       this.playks = true;
@@ -268,24 +197,9 @@ export default {
         this.$store.dispatch("addmusicData", {index: num, list: this.musicData.Musiclist})
       }
     },
-    // 修改类型
-    changeMode() {
-      this.playerType = this.playerType === 1 ? 2 : 1;
-    }
 
   },
-  filters: {
-    playertime(data) {
-      let m = parseInt(data / 60); //分钟
-      let s = parseInt(data % 60); //秒
-      s = s < 10 ? "0" + s : s;
-      if (m == 0 && s == 0) {
-        return "0:00";
-      } else {
-        return m + ":" + s;
-      }
-    }
-  },
+
   created() {
     console.log(this.$route.path, "路径");
     getSongDetail({ids: this.musicData.Musiclist[this.musicData.musicI].id}).then(data => {
@@ -401,16 +315,6 @@ export default {
   bottom: 1.875rem;
 }
 
-.custom-button {
-  width: 26px;
-  color: #fff;
-  font-size: 10px;
-  line-height: 18px;
-  text-align: center;
-  background-color: #ee0a24;
-  border-radius: 100px;
-}
-
 .popub-ul {
   width: 100%;
   box-sizing: border-box;
@@ -467,8 +371,8 @@ export default {
   position: fixed;
   top: 0px;
   bottom: 0px;
-  width: 10rem;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   margin: auto;
   background: #837F7D;
   z-index: 500;

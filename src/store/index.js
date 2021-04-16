@@ -8,15 +8,16 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         historySearch: [],
-        musicData:{
-            musicI:"",
-            Musiclist:""
+        musicData: {
+            musicI: "",
+            Musiclist: ""
         },
-        user:{
-            phone:"",
-            captcha:"",
-            login:false
-        }
+        user: {
+            phone: "",
+            captcha: "",
+            login: false
+        },
+        collect: [],
     },
     mutations: {
         ADDHISTORY(state, {data}) {
@@ -29,19 +30,22 @@ export default new Vuex.Store({
         DELALLHISTORY(state) {
             state.historySearch.splice(0)
         },
-        ADDMUSICDATA(state,data){
+        ADDMUSICDATA(state, data) {
             state.musicData.musicI = data.index;
             state.musicData.Musiclist = data.list
         },
-        ADDUSER(state, data){
+        ADDUSER(state, data) {
             state.user.phone = data.phone;
             state.user.captcha = data.captcha;
             state.user.login = true;
         },
-        DELUSER(state){
+        DELUSER(state) {
             state.user.phone = "";
             state.user.captcha = "";
             state.user.login = false;
+        },
+        ADDENSHRINE(state, {data}) {
+            state.collect.push(data)
         }
     },
     actions: {
@@ -54,16 +58,19 @@ export default new Vuex.Store({
         delallhistory({commit}, data) {
             commit("DELALLHISTORY", {data})
         },
-        addmusicData({commit},data){
-            commit("ADDMUSICDATA",data)
+        addmusicData({commit}, data) {
+            commit("ADDMUSICDATA", data)
         },
-        addUser({commit},data){
-            commit("ADDUSER",data)
+        addUser({commit}, data) {
+            commit("ADDUSER", data)
         },
-        delUser({commit}){
+        delUser({commit}) {
             commit('DELUSER')
+        },
+        addenshrine({commit}, data) {
+            commit("ADDENSHRINE", {data})
         }
     },
     modules: {},
-    plugins: [createPersistedState({storage:window.sessionStorage})]
+    plugins: [createPersistedState({storage: window.sessionStorage})]
 })

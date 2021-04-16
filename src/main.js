@@ -9,11 +9,12 @@ Vue.config.productionTip = false
 import "amfe-flexible"
 import Vant from 'vant';
 import 'vant/lib/index.css';
+
 Vue.use(Vant);
 import './assets/font/iconfont.css'
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')

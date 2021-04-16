@@ -11,19 +11,19 @@ import HeaderNav from "./components/header/HeaderNav";
 
 export default {
   name: "App",
-  data(){
-    return{
-      falg:true,
+  data() {
+    return {
+      falg: true,
     }
   },
-  components:{
+  components: {
     HeaderNav,
 
   },
-  methods:{
-    showOr(data){
+  methods: {
+    showOr(data) {
       // console.log(data)
-      this.falg=!data;
+      this.falg = !data;
     },
   }
 }

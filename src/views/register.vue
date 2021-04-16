@@ -25,10 +25,11 @@
 </template>
 
 <script>
-import {mapState,mapActions} from "vuex"
-import { Notify } from 'vant';
+import {mapState, mapActions} from "vuex"
+import {Notify} from 'vant';
 // import {getCaptcha,getCaptchaVerify} from "../api/login"
 import {getCaptcha} from "../api/login"
+
 export default {
   name: "register",
   data() {
@@ -37,27 +38,27 @@ export default {
       captcha: ""
     }
   },
-  computed:{
+  computed: {
     ...mapState(['user'])
   },
-  methods:{
+  methods: {
     ...mapActions(['addUser']),
-    fasong(){
+    fasong() {
       let reg = /^(13[0-9]|14[5|7]|15[0|1|2|3|4|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
-      if(reg.test(this.phone)){
-        getCaptcha({"phone":this.phone}).then((data)=>{
-          if(data.code === 200){
+      if (reg.test(this.phone)) {
+        getCaptcha({"phone": this.phone}).then((data) => {
+          if (data.code === 200) {
             // 成功通知
-            Notify({ type: 'success', message: '验证码已发送' });
+            Notify({type: 'success', message: '验证码已发送'});
           }
         })
-      }else {
-        Notify({ type: 'warning', message: '请输入正确手机号码' });
+      } else {
+        Notify({type: 'warning', message: '请输入正确手机号码'});
       }
 
       console.log("aaaaa")
     },
-    submit(){
+    submit() {
       // let reg = /^[0-9]{4}$/;
       // if(!reg.test(this.captcha)){
       //     Notify({ type: 'warning', message: '请输入正确验证码' });
@@ -71,7 +72,7 @@ export default {
       //     }
       //
       // })
-      this.addUser({"phone":this.phone,"captcha":this.captcha});
+      this.addUser({"phone": this.phone, "captcha": this.captcha});
     }
   }
 
